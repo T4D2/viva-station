@@ -89,6 +89,7 @@
     size: Huge
     shape:
     - 0,0,4,2
+
   - type: Clothing
     sprite: Objects/Weapons/Guns/Battery/laser_retro.rsi
     quickEquip: false
@@ -282,6 +283,8 @@
       - state: mag-unshaded-4
         map: ["enum.GunVisualLayers.MagUnshaded"]
         shader: unshaded
+  - type: Item
+    size: Huge
   - type: Gun
     projectileSpeed: 10
     soundGunshot:
@@ -468,6 +471,8 @@
     - state: mag-unshaded-4
       map: ["enum.GunVisualLayers.MagUnshaded"]
       shader: unshaded
+  - type: Item
+    size: Huge
   - type: MagazineVisuals
     magState: mag
     steps: 5
@@ -821,6 +826,50 @@
   - type: StaticPrice
     price: 100
   - type: Multishot # Goobstation
+
+- type: entity
+  id: CHIMPRecharging
+  parent: [BaseWeaponBattery, BaseScienceContraband]
+  name: Experimental C.H.I.M.P
+  description: A bluespace-enhanced C.H.I.M.P handcannon that passively generates its own energy.
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Revolvers/chimp.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-unshaded-1
+      visible: false
+      map: ["enum.GunVisualLayers.MagUnshaded"]
+      shader: unshaded
+  - type: Appearance
+  - type: Clothing
+    sprite: Objects/Weapons/Guns/Revolvers/chimp.rsi
+  - type: Gun
+    projectileSpeed: 10
+    fireRate: 1.5
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/taser2.ogg
+  - type: Battery
+    maxCharge: 1000
+    startingCharge: 1000
+  - type: BatterySelfRecharger
+    autoRecharge: true
+    autoRechargeRate: 17
+  - type: ProjectileBatteryAmmoProvider
+    proto: AnomalousParticleDeltaStrong
+    fireCost: 100
+  - type: BatteryWeaponFireModes
+    fireModes:
+    - proto: AnomalousParticleDeltaStrong
+      fireCost: 100
+    - proto: AnomalousParticleEpsilonStrong
+      fireCost: 100
+    - proto: AnomalousParticleZetaStrong
+      fireCost: 100
+    - proto: AnomalousParticleSigmaStrong
+      fireCost: 100
+
 
 - type: entity
   name: experimental C.H.I.M.P. handcannon
