@@ -1,11 +1,11 @@
 {
-    "version": 1,
-    "license": "CC0-1.0",
-    "copyright": "Created by EmoGarbage404 (github) for Space Station 14. icon-construction.png created by deltanedas (github). syndicateborgbomb.png created by Mangohydra (github). layered inhands by mubururu_ (github).",
-    "size": {
-        "x": 32,
-        "y": 32
-    },
+  "version": 1,
+  "license": "CC0-1.0",
+  "copyright": "Created by EmoGarbage404 (github) for Space Station 14. icon-construction.png created by deltanedas (github). syndicateborgbomb.png created by Mangohydra (github). icon-atmos created by @acalicodragon.itch.io (bluesky).",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
     "states": [
         {
             "name": "cargo"
@@ -18,6 +18,9 @@
         },
         {
             "name": "icon-anomalies"
+        },
+        {
+            "name": "icon-advanced-anomalies"
         },
         {
             "name": "icon-appraisal"
@@ -86,6 +89,9 @@
             "name": "icon-rcd"
         },
         {
+            "name": "icon-atmos"
+        },
+        {
             "name": "icon-template"
         },
         {
@@ -101,16 +107,13 @@
             "name": "icon-treatment"
         },
         {
-            "name": "icon-syndicate"
+            "name": "icon-surgery"
         },
         {
             "name": "icon-advanced-surgery"
         },
         {
-            "name": "icon-surgery"
-        },
-        {
-            "name": "icon-atmos"
+            "name": "icon-syndicate"
         },
         {
             "name": "janitor"
