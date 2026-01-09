@@ -133,7 +133,6 @@
   name: guide-entry-command-sop
   text: "/ServerInfo/Funkystation/Guidebook/Command/GeneralCommandSOP.xml"
   children:
-  - CommandTrainingManual
   - OrderOfSuccession
   - CaptainSOP
 
@@ -246,7 +245,6 @@
   - SecurityOfficerSOP
   - WardenSOP
   - DetectiveSOP
-  - SecurityTrainingManual
 
 - type: guideEntry
   id: HoSSOP
