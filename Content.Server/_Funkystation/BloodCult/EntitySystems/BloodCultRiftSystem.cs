@@ -589,6 +589,97 @@ public sealed partial class BloodCultRiftSystem : EntitySystem
 	}
 
 	/// <summary>
+	/// When a cultist clicks on the BloodCultRift itself, start the ritual.
+	/// </summary>
+	private void OnTriggerRitualFromRift(EntityUid uid, BloodCultRiftComponent component, TriggerEvent args)
+	{
+		// Only cultists can trigger the ritual
+		if (args.User == null || !TryComp<BloodCultistComponent>(args.User, out var cultist))
+		{
+			args.Handled = true;
+			return;
+		}
+
+		var user = args.User.Value;
+		var riftUid = uid;
+
+		// Don't start if ritual is already in progress
+		if (component.RitualInProgress)
+		{
+			_popupSystem.PopupEntity(
+				Loc.GetString("cult-final-ritual-already-in-progress"),
+				user, user, PopupType.MediumCaution
+			);
+			args.Handled = true;
+			return;
+		}
+
+		// Ensure the cult has weakened the veil (blood collected plus ritual)
+		//Should never happen, since the rift spawns "after" the veil is weakened. But this covers weird use cases of admin-spawned rifts.
+		if (!_bloodCultRule.TryGetActiveRule(out var ruleComp) || !ruleComp.VeilWeakened || ruleComp.BloodCollected < ruleComp.BloodRequiredForVeil)
+		{
+			_popupSystem.PopupEntity(
+				Loc.GetString("cult-final-ritual-too-early",
+					("collected", Math.Round(ruleComp.BloodCollected, 1)),
+					("required", Math.Round(ruleComp.BloodRequiredForVeil, 1))),
+				user, user, PopupType.LargeCaution
+			);
+			args.Handled = true;
+			return;
+		}
+
+		component.RequiredCultistsForChant = 3;
+
+		// Check if enough runes have cultists on them
+		var cultistsOnRunes = GetCultistsOnSummoningRunes(component);
+		if (cultistsOnRunes.Count < component.RequiredCultistsForChant)
+		{
+			var allowPopup = component.LastNotEnoughCultistsPopup == TimeSpan.Zero ||
+				(_timing.CurTime - component.LastNotEnoughCultistsPopup) > TimeSpan.FromSeconds(1);
+
+			if (allowPopup)
+			{
+				component.LastNotEnoughCultistsPopup = _timing.CurTime;
+				_popupSystem.PopupEntity(
+					Loc.GetString("cult-final-ritual-not-enough-cultists",
+						("current", cultistsOnRunes.Count),
+						("required", component.RequiredCultistsForChant)),
+					user, user, PopupType.LargeCaution
+				);
+			}
+			args.Handled = true;
+			return;
+		}
+
+		// Ritual can begin
+		component.RitualInProgress = true;
+		component.LastNotEnoughCultistsPopup = _timing.CurTime;
+		component.CurrentChantStep = 0;
+		component.SacrificesCompleted = 0;
+		component.RequiredSacrifices = 3;
+		component.FinalSacrificeDone = false;
+		component.TotalChantSteps = (SacrificeChantDelays.Length + 1) * component.RequiredSacrifices;
+		component.ChantsCompletedInCycle = 0;
+		component.PendingSacrifice = null;
+		component.TimeUntilNextChant = 0f;
+		component.FinalSacrificePending = false;
+		component.TimeUntilNextShake = 0f;
+		component.NextShakeIndex = 0;
+
+		// Uses placeholder music for now.
+		// todo: find better bloodcult music
+		StartRitualMusic(riftUid, component);
+
+		// Announce to all cultists
+		AnnounceRitualStart();
+
+		// Immediately perform first chant
+		ProcessChantStep(riftUid, component, Transform(riftUid));
+
+		args.Handled = true;
+	}
+
+	/// <summary>
 	/// When a cultist triggers a final summoning rune, check if enough cultists are on all 3 runes.
 	/// </summary>
 	private void OnTriggerRitual(EntityUid uid, FinalSummoningRuneComponent finalRune, TriggerEvent args)

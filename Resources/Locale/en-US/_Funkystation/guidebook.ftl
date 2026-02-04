@@ -30,8 +30,6 @@ guide-entry-ingredient-reactions = Ingredient Reactions
 
 guide-entry-blood-cult = Blood Cult
 
-guide-entry-training-manual-security = Security Training Manual
-guide-entry-training-manual-command = Command Training Manual
 guide-entry-order-of-succession = Order of Succession
 
 guide-entry-command-sop = Command SOP

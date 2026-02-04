@@ -1,7 +1,11 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
+<<<<<<<< HEAD:Resources/Textures/_Funkystation/Clothing/OuterClothing/Coats/biker.rsi/meta.json
   "copyright": "For Funky Station by Frogoo",
+========
+  "copyright": "sproten by zergologist (discord) for Funky" ,
+>>>>>>>> upstream/master:Resources/Textures/_Funkystation/Clothing/Shoes/Boots/coveredboots.rsi/meta.json
   "size": {
     "x": 32,
     "y": 32
@@ -11,7 +15,11 @@
       "name": "icon"
     },
     {
+<<<<<<<< HEAD:Resources/Textures/_Funkystation/Clothing/OuterClothing/Coats/biker.rsi/meta.json
       "name": "equipped-OUTERCLOTHING",
+========
+      "name": "equipped-FEET",
+>>>>>>>> upstream/master:Resources/Textures/_Funkystation/Clothing/Shoes/Boots/coveredboots.rsi/meta.json
       "directions": 4
     },
     {

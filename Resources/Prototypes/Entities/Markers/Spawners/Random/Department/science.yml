@@ -124,9 +124,12 @@
     - BorgModuleCooking
     - BorgModuleAtmos
     - BorgModuleAdvancedTool
-
     rareChance: 0.1
     prototypes:
+    - BorgModuleCable
     - BorgModuleFireExtinguisher
+    - BorgModuleTool
+    - BorgModuleArtifact
+    - BorgModuleAnomaly
     chance: 0.9
     offset: 0.2
